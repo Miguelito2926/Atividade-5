@@ -31,7 +31,7 @@ public class FlorentApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		Localidades local1 = new Localidades (null, "Rio de janeiro", "São Paulo","23-12-2025",150);
+		/*Localidades local1 = new Localidades (null, "Rio de janeiro", "São Paulo","23-12-2025",150);
 	
 		localidadesrepository.save(local1);
 		
@@ -44,7 +44,7 @@ public class FlorentApplication implements CommandLineRunner {
 		
 		Promocao pro1 = new Promocao (null,"Londres", cli2, local1);
 		promocaorepository.save(pro1);
-		
+		*/
 		
 	}
 	
