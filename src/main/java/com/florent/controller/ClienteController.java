@@ -20,7 +20,7 @@ import com.florent.model.Cliente;
 import com.florent.repository.ClienteRepository;
 @CrossOrigin(origins = "http://localhost:3000/")
 @Repository
-@RequestMapping (value = "/clientes")
+@RequestMapping (value = "/cliente")
 public class ClienteController {
 	
 	@Autowired

@@ -1,12 +1,17 @@
 package com.florent.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Localidades implements Serializable{
@@ -20,6 +25,10 @@ public class Localidades implements Serializable{
 	private String destino;
 	private String data;
 	private double preco;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "localidades")
+	private List<Promocao> promocoes = new ArrayList<Promocao>();
 
 
 	public Localidades() {
@@ -84,6 +93,18 @@ public class Localidades implements Serializable{
 
 	public void setPreco(double preco) {
 		this.preco = preco;
+	}
+
+	
+	
+
+	public List<Promocao> getPromocoes() {
+		return promocoes;
+	}
+
+
+	public void setPromocoes(List<Promocao> promocoes) {
+		this.promocoes = promocoes;
 	}
 
 

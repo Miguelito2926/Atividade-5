@@ -20,7 +20,7 @@ import com.florent.repository.PromocaoRepository;
 
 @CrossOrigin(origins =  "http://localhost:3000/")
 @Controller
-@RequestMapping(value = "/promocoes")
+@RequestMapping(value = "/promocao")
 public class PromocaoControle {
 
 	@Autowired
@@ -53,7 +53,6 @@ public class PromocaoControle {
 		Promocao updatePromocao = promocaorepository.findById(id).get();
 		
 		updatePromocao.setPromocao(promocaoDetails.getPromocao());
-		updatePromocao.setPreco(promocaoDetails.getPreco());
 		
 		
 		promocaorepository.save(updatePromocao);

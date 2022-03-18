@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.ManyToOne;
+
+
 
 
 @Entity
@@ -17,7 +22,18 @@ public class Promocao implements Serializable {
 	@GeneratedValue(strategy  = GenerationType.IDENTITY)
 	private Long id;
 	private String promocao;
-	private Double preco;
+	
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente; // referencia da chave "estrangeira"
+	
+
+	@ManyToOne
+	@JoinColumn (name = "localidades_id")
+	private Localidades localidades;
+	
 	
 	public Promocao() {
 		super();
@@ -25,11 +41,30 @@ public class Promocao implements Serializable {
 		
 	}
 
-	public Promocao(Long id, String promocao, Double preco) {
+	public Promocao(Long id, String promocao, Cliente cliente, Localidades localidades) {
 		super();
 		this.id = id;
 		this.promocao = promocao;
-		this.preco = preco;
+		this.cliente = cliente;
+		this.localidades = localidades;
+		
+	}	
+	
+
+	public Localidades getLocalidades() {
+		return localidades;
+	}
+
+	public void setLocalidades(Localidades localidades) {
+		this.localidades = localidades;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Long getId() {
@@ -48,13 +83,7 @@ public class Promocao implements Serializable {
 		this.promocao = promocao;
 	}
 
-	public Double getPreco() {
-		return preco;
-	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
-	}
 
 	@Override
 	public int hashCode() {
