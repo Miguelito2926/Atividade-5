@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.florent.model.Cliente;
 
 import com.florent.repository.ClienteRepository;
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*")
 @Repository
 @RequestMapping (value = "/cliente")
 public class ClienteController {

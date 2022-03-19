@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.florent.model.Promocao;
 import com.florent.repository.PromocaoRepository;
 
-@CrossOrigin(origins =  "http://localhost:3000/")
+@CrossOrigin(origins =  "*")
 @Controller
 @RequestMapping(value = "/promocao")
 public class PromocaoControle {

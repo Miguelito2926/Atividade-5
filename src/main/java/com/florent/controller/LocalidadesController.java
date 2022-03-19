@@ -19,7 +19,7 @@ import com.florent.model.Localidades;
 import com.florent.repository.LocalidadesRepository;
 
 
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping (value = "/localidades")
 public class LocalidadesController {
