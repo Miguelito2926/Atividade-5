@@ -1,12 +1,13 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./views/Home";
-import Autores from "./views/autores";
-import AutoresCreate from "./views/autores/Create";
-import Editoras from "./views/editoras";
-import EditorasCreate from "./views/editoras/Create";
-import Livros from "./views/livros";
-import LivrosCreate from "./views/livros/Create";
+import Cliente from "./views/cliente";
+import ClienteCreate from "./views/cliente/Create";
+import Localidades from "./views/localidades";
+import LocalidadesCreate from "./views/localidades/Create";
+import Promocao from "./views/promocao";
+import PromocaoCreate from "./views/promocao/Create";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 
@@ -19,15 +20,15 @@ function App() {
         <Menu />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Autores" element={<Autores />} />
-          <Route path="/Autores-Create" element={<AutoresCreate />} />
-          <Route path="/Autores-Update/:id" element={<AutoresCreate />} />
-          <Route path="/Editoras" element={<Editoras />} />
-          <Route path="/Editoras-Create" element={<EditorasCreate />} />
-          <Route path="/Editoras-Update/:id" element={<EditorasCreate />} />
-          <Route path="/Livros" element={<Livros />} />
-          <Route path="/Livros-Create" element={<LivrosCreate />} />
-          <Route path="/Livros-Update/:id" element={<LivrosCreate />} />
+          <Route path="/Cliente" element={<Cliente />} />
+          <Route path="Cliente/Cliente-Create" element={<ClienteCreate />} />
+          <Route path="/Cliente-Update/:id" element={<ClienteCreate />} />
+          <Route path="/Localidades" element={<Localidades />} />
+          <Route path="/Localidades-Create" element={<LocalidadesCreate />} />
+          <Route path="/Localidades-Update/:id" element={<LocalidadesCreate />} />
+          <Route path="/Promocao" element={<Promocao />} />
+          <Route path="/Promocao-Create" element={<PromocaoCreate />} />
+          <Route path="/Promocao-Update/:id" element={<PromocaoCreate />} />
         </Routes>
       </main>
       <Footer />

@@ -31,8 +31,9 @@ public class Promocao implements Serializable {
 	
 
 	@ManyToOne
-	@JoinColumn (name = "localidades_id")
-	private Localidades localidades;
+	@JoinColumn(name = "localidades_id")
+	private Localidades localidades; // referencia da chave "estrangeira"
+	
 	
 	
 	public Promocao() {
@@ -46,9 +47,10 @@ public class Promocao implements Serializable {
 		this.id = id;
 		this.promocao = promocao;
 		this.cliente = cliente;
-		this.localidades = localidades;
+		this.localidades= localidades;
 		
 	}	
+	
 	
 
 	public Localidades getLocalidades() {

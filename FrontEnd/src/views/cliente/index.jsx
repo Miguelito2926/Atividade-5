@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import AutorService from "../../services/AutorService";
+import ClienteService from "../../services/ClienteService";
 
 export default function Index() {
   const [clientes, setClientes] = useState([]);
 
   const getAllClientes = () => {
-    AutorService.getAllClientes()
+    ClienteService.getAllClientes()
       .then((response) => {
         setClientes(response.data);
       })
@@ -20,7 +20,7 @@ export default function Index() {
   }, []);
 
   const deleteCliente = (clienteId) => {
-    AutorService.deleteCliente(clienteId)
+    ClienteService.deleteCliente(clienteId)
       .then((response) => {
         getAllClientes();
       })
@@ -36,39 +36,37 @@ export default function Index() {
   return (
     <>
       <header className="header">
-        <h1 className="container">Cadastro Cliente</h1>
+        <h1 className="container">Cadastro de Clientes</h1>
       </header>
       <div className="container p-5">
-        <Link to="/Cliente-Create" className="btn btn-primary mb-2">
-          Criar Cliente
+        <Link to="Cliente-Create" className="btn btn-primary mb-2">
+          Novo Cliente
         </Link>
         <div className="table-responsive">
           <table className="table table-hover table-sm">
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Nome</th>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>E-MAIL</th>
                 <th>CPF</th>
-                <th>Ações</th>
+                <th>OPCÕES</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.map((autor) => (
-                <tr key={clientes.id}>
-                  <td>{clientes.id}</td>
-                  <td>{clientes.nome}</td>
-                  <td>{clientes.email}</td>
-                  <td>{clientes.cpf}</td>
+              {clientes.map((cliente) => (
+                <tr key={cliente.id}>
+                  <td>{cliente.id}</td>
+                  <td>{cliente.nome}</td>
+                  <td>{cliente.email}</td>
+                  <td>{cliente.cpf}</td>
                   <td className="d-flex">
                     <Link
-                      to={`/Cliente-Update/${clientes.id}`}
-                      className="btn btn-info"
-                    >
-                      Editar
-                    </Link>
+                      to={`/Cliente-Update/${cliente.id}`}
+                      className="btn btn-primary"> Editar</Link>
                     <button
                       className="btn btn-danger"
-                      onClick={() => deleteCliente(clientes.id)}
+                      onClick={() => deleteCliente(cliente.id)}
                       style={{ marginLeft: "10px" }}
                     >
                       Deletar

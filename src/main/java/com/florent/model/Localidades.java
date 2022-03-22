@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+
 @Entity
 public class Localidades implements Serializable{
 	
@@ -20,7 +22,7 @@ public class Localidades implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id_destino;
+	private Long id;
 	private String  origem;
 	private String destino;
 	private String data;
@@ -29,30 +31,41 @@ public class Localidades implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "localidades")
 	private List<Promocao> promocoes = new ArrayList<Promocao>();
-
+	
 
 	public Localidades() {
 		super();
 	}
 
 
-	public Localidades(Long id_destino, String origem, String destino, String data, double preco) {
+	public Localidades(Long id, String origem, String destino, String data, double preco) {
 		super();
-		Id_destino = id_destino;
+		this.id = id;
 		this.origem = origem;
 		this.destino = destino;
 		this.data = data;
 		this.preco = preco;
+		
+	}
+	
+
+	public List<Promocao> getPromocoes() {
+		return promocoes;
 	}
 
 
-	public Long getId_destino() {
-		return Id_destino;
+	public void setPromocoes(List<Promocao> promocoes) {
+		this.promocoes = promocoes;
 	}
 
 
-	public void setId_destino(Long id_destino) {
-		Id_destino = id_destino;
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId_destino(Long id) {
+		this.id = id;
 	}
 
 
@@ -95,22 +108,10 @@ public class Localidades implements Serializable{
 		this.preco = preco;
 	}
 
-	
-	
-
-	public List<Promocao> getPromocoes() {
-		return promocoes;
-	}
-
-
-	public void setPromocoes(List<Promocao> promocoes) {
-		this.promocoes = promocoes;
-	}
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Id_destino);
+		return Objects.hash(id);
 	}
 
 
@@ -123,7 +124,7 @@ public class Localidades implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Localidades other = (Localidades) obj;
-		return Objects.equals(Id_destino, other.Id_destino);
+		return Objects.equals(id, other.id);
 	}
 
 	

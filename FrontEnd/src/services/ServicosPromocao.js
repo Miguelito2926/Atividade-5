@@ -4,12 +4,12 @@ const PROMOCAO_API_URL = "http://localhost:8080/promocao";
 
 class ServicosPromocao {
 
-    getPromocao(){
+    getAllPromocao(){
         return axios.get(PROMOCAO_API_URL);
     }
 
-    createPromocao(localidades){
-        return axios.post(PROMOCAO_API_URL, localidades);
+    createPromocao(promocao){
+        return axios.post(PROMOCAO_API_URL, promocao);
     }
 
     getPromocaoById(promocaoId){

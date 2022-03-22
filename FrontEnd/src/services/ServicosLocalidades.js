@@ -4,11 +4,11 @@ const LOCALIDADES_API_URL = "http://localhost:8080/localidades";
 
 class ServicosLocalidades {
 
-    getLocalidades(){
+    getAllDestinos(){
         return axios.get(LOCALIDADES_API_URL);
     }
 
-    createLocalidades(localidades){
+    createDestinos(localidades){
         return axios.post(LOCALIDADES_API_URL, localidades);
     }
 

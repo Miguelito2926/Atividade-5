@@ -31,8 +31,22 @@ footer {
   padding: 20px;
   width: 100%;
   text-align: center;
+  color: rgb(66, 66, 219);
 }
 
 footer img {
-  height: 30px;
+  height: 30px; 
 }
+
+.flex-container {
+  display: flex; padding:40px;line-height: 1.44;text-align: justify; font-size:15px; padding-top: 10px; color: rgb(0, 132, 255);
+}
+
+.hprincipal{
+  padding-top: 30px;text-shadow:0px 5px 20px rgb(0, 47, 255);text-align: center;
+}
+
+h2{
+  font-size:larger; padding-left:20px;padding: 40px; color:rgb(18, 85, 209) ;
+}
+

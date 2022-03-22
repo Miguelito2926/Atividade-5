@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import AutorService from "../../services/ClienteService";
+import ClienteService from "../../services/ClienteService";
 
 export default function Create() {
+
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [cpf, SetCPF] = useState("");
+  const [cpf, setCpf] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -15,15 +16,15 @@ export default function Create() {
     const cliente = { nome, email, cpf};
 
     if (id) {
-        AutorService.updateCliente(id, cliente)
+      ClienteService.updateCliente(id, cliente)
         .then((response) => {
             navigate("/Cliente")
         })
 
     } else {
-        AutorService.createCliente(cliente)
+      ClienteService.createCliente(cliente)
         .then((response) => {
-            navigate("/Clientes")
+            navigate("/Cliente")
         })
     }
   }
@@ -31,11 +32,11 @@ export default function Create() {
   useEffect(() => {
       function getClienteById() {
         if (id) {
-            AutorService.getClienteById(id)
+          ClienteService.getClienteById(id)
             .then((response) => {
                 setNome(response.data.nome);
                 setEmail(response.data.email);
-                SetCPF(response.data.cpf)
+                setCpf(response.data.cpf)
             })
             .catch((error) => {
                 console.log(error);
@@ -67,7 +68,7 @@ export default function Create() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="Sobrenome" className="form-label">
+            <label htmlFor="Email" className="form-label">
               E-mail
             </label>
             <input
@@ -90,7 +91,7 @@ export default function Create() {
               className="form-control"
               placeholder="CPF"
               value={cpf}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setCpf(e.target.value)}
             />
           </div>
 

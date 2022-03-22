@@ -6,7 +6,7 @@ export default function Menu() {
     <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Bookstore
+          Florent
         </Link>
         <button
           className="navbar-toggler"
@@ -22,18 +22,18 @@ export default function Menu() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/Autores" className="nav-link text-dark ">
-                Autores
+              <Link to="/Cliente" className="nav-link text-dark ">
+                Cliente
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Editoras" className="nav-link text-dark">
-                Editoras
+              <Link to="/Localidades" className="nav-link text-dark">
+                Localidades
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/Livros" className="nav-link text-dark">
-                Livros
+              <Link to="/Promocao" className="nav-link text-dark">
+                Promocao
               </Link>
             </li>
           </ul>

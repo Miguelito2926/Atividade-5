@@ -1,19 +1,22 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ServicosLocalidades from "../../services/ServicosLocalidades";
+import ClienteService from "../../services/ClienteService";
 
 export default function Create() {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [data, setData] = useState("");
-  const [preco, setPreco] = useState("");
+  const [preco, setPreco] = useState("0.0");
   const { id } = useParams();
   const navigate = useNavigate();
-
+ 
   const criarOuEditarLocalidades = (e) => {
     e.preventDefault();
 
-    const localidades= { origem, destino, data, preco};
+
+    const localidades= {id, origem, destino, data, preco};
 
     if (id) {
       ServicosLocalidades.updateLocalidades(id, localidades).then((response) => {
@@ -31,7 +34,11 @@ export default function Create() {
       if (id) {
         ServicosLocalidades.getLocalidadesById(id)
           .then((response) => {
+
             setOrigem(response.data.origem);
+            setDestino(response.data.destino);
+            setData(response.data.data);
+            setPreco(response.data.preco);
           })
           .catch((error) => {
             console.log(error);
@@ -76,6 +83,34 @@ export default function Create() {
               onChange={(e) => setDestino(e.target.value)}
             />
           </div>
+          
+          <div className="mb-3">
+            <label htmlFor="Data" className="form-label">
+              Data
+            </label>
+            <input
+              type="date"
+              id="Data"
+              className="form-control"
+              placeholder="Data"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="Preco" className="form-label">
+              Preço
+            </label>
+            <input
+              type="numeric"
+              id="Preco"
+              className="form-control"
+              placeholder="Preco"
+              value={preco}
+              onChange={(e) => setPreco(e.target.value)}
+            />
+          </div>        
 
           <button
             type="submit"

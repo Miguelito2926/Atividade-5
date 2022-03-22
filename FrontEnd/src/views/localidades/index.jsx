@@ -1,14 +1,17 @@
+
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ServicosLocalidades from "../../services/";
+import ServicosLocalidades from "../../services/ServicosLocalidades";
+
 
 export default function Index() {
-  const [localidades, setLocalidades] = useState([]);
+  const [destinos, setDestinos] = useState([]);
 
-  const getAllLocalidades = () => {
-    ServicosLocalidades.getAllLocalidades()
+  const getAllDestinos = () => {
+    ServicosLocalidades.getAllDestinos()
       .then((response) => {
-        setLocalidades(response.data);
+        setDestinos(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -16,13 +19,13 @@ export default function Index() {
   };
 
   useEffect(() => {
-    getAllLocalidades();
+    getAllDestinos();
   }, []);
 
-  const deleteLocalidades = (localidadesId) => {
-    ServicosLocalidades.deleteLocalidades(localidadesId)
+  const deleteDestinos = (Id_destino) => {
+    ServicosLocalidades.deleteLocalidades(Id_destino)
       .then((response) => {
-        getAllLocalidades();
+        getAllDestinos();
       })
       .catch((error) => {
         console.log(error);
@@ -46,32 +49,34 @@ export default function Index() {
           <table className="table">
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Origem</th>
-                <th>Destino</th>
-                <th>Data</th>
-                <th>Preço</th>
-                <th>Ações</th>
+                <th>ID</th>
+                <th>ORIGEM</th>
+                <th>DESTINO</th>
+                <th>DATA</th>
+                <th>PREÇO</th>
+                <th>AÇÕES</th>
               </tr>
             </thead>
             <tbody>
-              {localidades.map((editora) => (
-                <tr key={localidades.id}>
-                  <td>{localidades.id}</td>
-                  <td>{localidades.origem}</td>
-                  <td>{localidades.destino}</td>
-                  <td>{localidades.data}</td>
-                  <td>{localidades.preco}</td>
+              {destinos.map((destino) => (
+                <tr key={destino.id}>
+                  <td>{destino.id}</td>
+                  <td>{destino.origem}</td>
+                  <td>{destino.destino}</td>
+                  <td>{destino.data}</td>
+                  <td>{destino.preco}</td>            
+                 
+
                   <td className="d-flex">
                     <Link
-                      to={`/Localidades-Update/${localidades.id}`}
-                      className="btn btn-info"
+                      to={`/Localidades-Update/${destino.id}`}
+                      className="btn btn-primary"
                     >
                       Editar
                     </Link>
                     <button
                       className="btn btn-danger"
-                      onClick={() => deleteLocalidades(localidades.id)}
+                      onClick={() => deleteDestinos(destino.Id)}
                       style={{ marginLeft: "10px" }}
                     >
                       Deletar
@@ -86,3 +91,4 @@ export default function Index() {
     </>
   );
 }
+

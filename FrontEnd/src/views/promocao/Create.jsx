@@ -1,24 +1,24 @@
+
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import AutorService from "../../services/AutorService";
-import EditoraService from "../../services/EditoraService";
-import LivroService from "../../services/LivroService";
-
+import ClienteService from "../../services/ClienteService";
+import ServicosPromocao from "../../services/ServicosPromocao";
+import ServicosLocalidades from "../../services/ServicosLocalidades";
 export default function Create() {
-  const [nome, setNome] = useState("");
-  const [isbn, setIsbn] = useState("");
-  const [preco, setPreco] = useState(0.0);
-  const [autor, setAutor] = useState({ id_autor: "", nome: ""});
-  const [editora, setEditora] = useState({ id: "", nome: "" });
-  const [autores, setAutores] = useState([]);
-  const [editoras, setEditoras] = useState([]);
+
+  const [promocao, setPromocao] = useState("Ex: Pacote internacional");
+  const [cliente, setCliente] = useState({ id: "", nome: "", email: "", cpf: "" });
+  const [clientes, setClientes] = useState([]);
+  const [localidade, setLocalidade] = useState({id: "", origem: "", destino: "", data: "", preco: ""});
+  const [localidades, setLocalidades] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const getAllEditoras = () => {
-    EditoraService.getAllEditoras()
+  
+  const getAllLocalidades = () => {
+    ClienteService.getAllLocalidades()
       .then((response) => {
-        setEditoras(response.data);
+        setLocalidades(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -26,13 +26,13 @@ export default function Create() {
   };
 
   useEffect(() => {
-    getAllEditoras();
+    getAllLocalidades();
   }, []);
 
-  const getAllAutores = () => {
-    AutorService.getAllAutores()
+  const getAllClientes = () => {
+    ClienteService.getAllClientes()
       .then((response) => {
-        setAutores(response.data);
+        setClientes(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -40,41 +40,46 @@ export default function Create() {
   };
 
   useEffect(() => {
-    getAllAutores();
+    getAllClientes();
   }, []);
 
-  const criarOuEditarAutor = (e) => {
+  const criarOuEditarPromocao = (e) => {
     e.preventDefault();
 
-    const livro = { nome, isbn, preco, autor, editora };
-    console.log(livro)
+
+    const promocao = { promocao };
+
     if (id) {
-      LivroService.updateLivro(id, livro).then((response) => {
-        navigate("/Livros");
+      ServicosPromocao.updatePromocao(id, promocao).then((response) => {
+        navigate("/Promocao");
       });
     } else {
-      LivroService.createLivro(livro).then((response) => {
-        navigate("/Livros");
+      ServicosPromocao.createPromocao(promocao).then((response) => {
+        navigate("/Promocao");
       });
     }
   };
 
   useEffect(() => {
-    function getLivroById() {
+    function getPromocaoById() {
       if (id) {
-        LivroService.getLivroById(id)
+        ServicosPromocao.getPromocaoById(id)
           .then((response) => {
-            setNome(response.data.nome);
-            setIsbn(response.data.isbn);
-            setPreco(response.data.preco);
-            setAutor({
-              id_autor: response.data.autor.id_autor,
-              nome: response.data.autor.nome,
+            setPromocao(response.data.promocao);
+            setCliente({
+              id: response.data.cliente.id,
+              nome: response.data.cliente.nome,
+              email: response.data.cliente.email,
+              cpf: response.data.cliente.cpf,
             });
-            setEditora({
-              id: response.data.editora.id,
-              nome: response.data.editora.nome,
+            setLocalidade({
+              id: response.data.localidade.id,
+              origem: response.data.localidade.origem,
+              destino: response.data.localidade.destino,
+              data: response.data.localidade.data,
+              preco:response.data.localidade.preco,
             });
+            
           })
           .catch((error) => {
             console.log(error);
@@ -82,7 +87,7 @@ export default function Create() {
       }
     }
 
-    getLivroById();
+    getPromocaoById();
   }, [id]);
 
   return (
@@ -92,99 +97,72 @@ export default function Create() {
           <legend>
             <h2 className="text-center">{id ? "Editar" : "Criar"}</h2>
           </legend>
-          <div className="form-group mb-3">
-            <label htmlFor="Nome" className="form-label">
-              Nome
+          <div className="mb-3">
+            <label htmlFor="Promocao" className="form-label">
+              Promocao
             </label>
             <input
               type="text"
-              id="Nome"
+              id="Promocao"
               className="form-control"
-              placeholder="Nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              placeholder="Promocao"
+              value={promocao}
+              onChange={(e) => setPromocao(e.target.value)}
             />
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="Isbn" className="form-label">
-              Isbn
-            </label>
-            <input
-              type="text"
-              id="Isbn"
-              className="form-control"
-              placeholder="Isbn"
-              value={isbn}
-              onChange={(e) => setIsbn(e.target.value)}
-            />
-          </div>
-
-          <div className="form-group mb-3">
-            <label htmlFor="Preco" className="form-label">
-              Preço
-            </label>
-            <input
-              type="text"
-              id="Preco"
-              className="form-control"
-              placeholder="Preco"
-              value={preco}
-              onChange={(e) => setPreco(Number.parseFloat(e.target.value))}
-            />
-          </div>
-
-          <div className="form-group mb-3">
-            <label htmlFor="AutorId_autor" className="form-label">
-              Autor
+            <label htmlFor="ClienteId_cliente" className="form-label">
+              Cliente
             </label>
             <select
-              id="AutorId_autor"
-              name="AutorId_autor"
+              id="ClienteId_cliente"
+              name="clienteId_cliente"
               className="form-select"
               onChange={(e) =>
-                setAutor({ id_autor: Number.parseInt(e.target.value) })
+                setCliente({ id: Number.parseInt(e.target.value) })
               }
             >
-              <option value="DEFAULT" >{id ? autor.nome : 'Escolha um autor'}</option>
-              {autores.map((autor) => (
-                <option key={autor.id_autor} value={autor.id_autor}>
-                  {autor.nome} {autor.sobrenome}
+              <option value="DEFAULT" >{id ? cliente.nome : 'Escolha um cliente'}</option>
+              {clientes.map((cliente) => (
+                <option key={cliente.id} value={cliente.id}>
+                  {cliente.nome} {cliente.email} {cliente.cpf}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="Editora" className="form-label">
-              Editora
+            <label htmlFor="Localidades" className="form-label">
+              Localidade
             </label>
             <select
-              id="Editora"
-              name="Editora"
+              id="Localidade"
+              name="Localidade"
               className="form-select"
               onChange={(e) =>
-                setEditora({ id: Number.parseInt(e.target.value) })
+                setLocalidade({ id: Number.parseInt(e.target.value) })
               }
             >
-              <option value="DEFAULT" >{id ? editora.nome : 'Escolha um editora'}</option>
-              {editoras.map((editora) => (
-                <option key={editora.id} value={editora.id}>
-                  {editora.nome}
+              <option value="DEFAULT" >{id ? localidade.origem : 'Alterar localidades'}</option>
+              {localidades.map((localidade) => (
+                <option key={localidade.id} value={localidade.id}>
+                  {localidade.origem} {localidade.destino} {localidade.data} {localidade.preco}
                 </option>
               ))}
             </select>
           </div>
+
 
           <button
             type="submit"
             className="btn btn-primary"
-            onClick={(e) => criarOuEditarAutor(e)}
+            onClick={(e) => criarOuEditarPromocao(e)}
           >
             Enviar
           </button>
           <Link
-            to="/Livros"
+            to="/Promocao"
             className="btn btn-danger"
             style={{ marginLeft: "10px" }}
           >
