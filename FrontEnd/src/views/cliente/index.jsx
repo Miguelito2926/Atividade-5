@@ -28,7 +28,7 @@ export default function Index() {
         console.log(error);
         const { data } = error.response;
         if (data.status === 500) {
-          alert("Erro na API");
+          alert("Não é possível excluir este dado!");
         }
       });
   };
@@ -39,12 +39,12 @@ export default function Index() {
         <h1 className="container">Cadastro de Clientes</h1>
       </header>
       <div className="container p-5">
-        <Link to="Cliente-Create" className="btn btn-primary mb-2">
-          Novo Cliente
+        <Link to="Cliente-Create" className="btn btn-outline-primary mb-2">
+        <strong>Novo Cliente</strong> 
         </Link>
         <div className="table-responsive">
           <table className="table table-hover table-sm">
-            <thead>
+            <thead className="text-primary">
               <tr>
                 <th>ID</th>
                 <th>NOME</th>
@@ -63,13 +63,13 @@ export default function Index() {
                   <td className="d-flex">
                     <Link
                       to={`/Cliente-Update/${cliente.id}`}
-                      className="btn btn-primary"> Editar</Link>
+                      className="btn btn-outline-primary"><strong>Editar</strong> </Link>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-outline-danger"
                       onClick={() => deleteCliente(cliente.id)}
                       style={{ marginLeft: "10px" }}
                     >
-                      Deletar
+                      <strong>Excluir</strong>
                     </button>
                   </td>
                 </tr>

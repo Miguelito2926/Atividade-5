@@ -4,12 +4,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Cliente from "./views/cliente";
 import ClienteCreate from "./views/cliente/Create";
-import Localidades from "./views/localidades";
-import LocalidadesCreate from "./views/localidades/Create";
+import Localidades from "./views/localidade";
+import LocalidadesCreate from "./views/localidade/Create";
 import Promocao from "./views/promocao";
 import PromocaoCreate from "./views/promocao/Create";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
+import Contato from "./views/Contato";
 
 import "./style.css";
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/Promocao" element={<Promocao />} />
           <Route path="/Promocao-Create" element={<PromocaoCreate />} />
           <Route path="/Promocao-Update/:id" element={<PromocaoCreate />} />
+          <Route path="/Contato" element={<Contato/>} />
         </Routes>
       </main>
       <Footer />

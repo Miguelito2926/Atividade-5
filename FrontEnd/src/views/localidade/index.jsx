@@ -6,12 +6,12 @@ import ServicosLocalidades from "../../services/ServicosLocalidades";
 
 
 export default function Index() {
-  const [destinos, setDestinos] = useState([]);
+  const [localidades, setLocalidades] = useState([]);
 
-  const getAllDestinos = () => {
-    ServicosLocalidades.getAllDestinos()
+  const getAllLocalidades=() => {
+    ServicosLocalidades.getAllLocalidades()
       .then((response) => {
-        setDestinos(response.data);
+        setLocalidades(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -19,19 +19,19 @@ export default function Index() {
   };
 
   useEffect(() => {
-    getAllDestinos();
+    getAllLocalidades();
   }, []);
 
-  const deleteDestinos = (Id_destino) => {
-    ServicosLocalidades.deleteLocalidades(Id_destino)
+  const deleteLocalidade = (localidadesId) => {
+    ServicosLocalidades.deleteLocalidade(localidadesId)
       .then((response) => {
-        getAllDestinos();
+        getAllLocalidades();
       })
       .catch((error) => {
         console.log(error);
         const { data } = error.response;
         if (data.status === 500) {
-          alert("Erro na API");
+          alert("Não é possível excluir este dado!");
         }
       });
   };
@@ -39,15 +39,15 @@ export default function Index() {
   return (
     <>
       <header className="header">
-        <h1 className="container">Cadastro Localidades</h1>
+        <h1 className="container">Cadastro de Localidades</h1>
       </header>
       <div className="container py-3">
-        <Link to="/Localidades-Create" className="btn btn-primary mb-2">
-          Criar Destinos
+        <Link to="/Localidades-Create" className="btn btn-outline-primary mb-2">
+         <strong>Criar Localidades</strong> 
         </Link>
         <div className="table-responsive">
           <table className="table">
-            <thead>
+            <thead className="text-primary">
               <tr>
                 <th>ID</th>
                 <th>ORIGEM</th>
@@ -58,28 +58,28 @@ export default function Index() {
               </tr>
             </thead>
             <tbody>
-              {destinos.map((destino) => (
-                <tr key={destino.id}>
-                  <td>{destino.id}</td>
-                  <td>{destino.origem}</td>
-                  <td>{destino.destino}</td>
-                  <td>{destino.data}</td>
-                  <td>{destino.preco}</td>            
+              {localidades.map((localidade) => (
+                <tr key={localidade.id}>
+                  <td>{localidade.id}</td>
+                  <td>{localidade.origem}</td>
+                  <td>{localidade.destino}</td>
+                  <td>{localidade.data}</td>
+                  <td>{localidade.preco}</td>            
                  
 
                   <td className="d-flex">
                     <Link
-                      to={`/Localidades-Update/${destino.id}`}
-                      className="btn btn-primary"
+                      to={`/Localidades-Update/${localidade.id}`}
+                      className="btn btn-outline-primary"
                     >
-                      Editar
+                      <strong>Editar</strong>
                     </Link>
                     <button
-                      className="btn btn-danger"
-                      onClick={() => deleteDestinos(destino.Id)}
+                      className="btn btn-outline-danger"
+                      onClick={() => deleteLocalidade(localidade.id)}
                       style={{ marginLeft: "10px" }}
                     >
-                      Deletar
+                      <strong>Excluir</strong>
                     </button>
                   </td>
                 </tr>

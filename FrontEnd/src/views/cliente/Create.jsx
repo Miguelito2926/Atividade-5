@@ -16,18 +16,15 @@ export default function Create() {
     const cliente = { nome, email, cpf};
 
     if (id) {
-      ClienteService.updateCliente(id, cliente)
-        .then((response) => {
-            navigate("/Cliente")
-        })
+      ClienteService.updateCliente(id, cliente).then((response) => {
+            navigate("/Cliente");
+        });
 
     } else {
-      ClienteService.createCliente(cliente)
-        .then((response) => {
-            navigate("/Cliente")
-        })
+      ClienteService.createCliente(cliente).then((response) => {navigate("/Cliente");
+        });
     }
-  }
+  };
 
   useEffect(() => {
       function getClienteById() {
@@ -36,14 +33,14 @@ export default function Create() {
             .then((response) => {
                 setNome(response.data.nome);
                 setEmail(response.data.email);
-                setCpf(response.data.cpf)
+                setCpf(response.data.cpf);
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
         }
       }
-      getClienteById()
+      getClienteById();
   }, [id]);
 
   return (
@@ -87,7 +84,7 @@ export default function Create() {
             </label>
             <input
               type="text"
-              id="Cpf"
+              id="CPF"
               className="form-control"
               placeholder="CPF"
               value={cpf}
@@ -95,15 +92,15 @@ export default function Create() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" onClick={(e) => criarOuEditarCliente(e)}>
-            Enviar
+          <button type="submit" className="btn btn-outline-primary" onClick={(e) => criarOuEditarCliente(e)}>
+          <strong>Enviar</strong>
           </button>
           <Link
             to="/Cliente"
-            className="btn btn-danger"
+            className="btn btn-outline-danger"
             style={{ marginLeft: "10px" }}
           >
-            Cancelar
+           <strong>Cancelar</strong>
           </Link>
         </fieldset>
       </form>

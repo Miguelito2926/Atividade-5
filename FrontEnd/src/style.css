@@ -3,6 +3,10 @@ main {
   position: relative;
 }
 
+Link{
+  color:  rgb(66, 66, 219);
+}
+
 main section {
   padding-bottom: 30px;
   min-height: 30vh;
@@ -10,18 +14,18 @@ main section {
 
 .header {
   height: 150px;
-  background-image: url("https://images.pexels.com/photos/4969107/pexels-photo-4969107.jpeg");
+  background-color:rgb(192, 192, 238) ;
   background-size: cover;
   padding: 30px;
   display: flex;
   align-items: flex-end;
-  color: white;
+  color: rgb(66, 66, 219);
 }
 
 .resposta {
   padding: 10px;
   font-size: 20px;
-  background: blue;
+  background:  rgb(66, 66, 219);
   border-radius: 10px;
   color: white;
   box-shadow: 2px 2px 8px black;
@@ -39,14 +43,33 @@ footer img {
 }
 
 .flex-container {
-  display: flex; padding:40px;line-height: 1.44;text-align: justify; font-size:15px; padding-top: 10px; color: rgb(0, 132, 255);
+  display: flex; padding:40px;line-height: 1.44;text-align: justify; font-size:15px; padding-top: 10px; color:  rgb(66, 66, 219);;
 }
 
 .hprincipal{
-  padding-top: 30px;text-shadow:0px 5px 20px rgb(0, 47, 255);text-align: center;
+  padding-top: 30px;text-shadow:0px 5px 20px  rgb(66, 66, 219);;text-align: center; color:  rgb(66, 66, 219);;
 }
 
 h2{
-  font-size:larger; padding-left:20px;padding: 40px; color:rgb(18, 85, 209) ;
+  font-size:larger; padding-left:20px;padding: 40px; color: rgb(66, 66, 219); ;
 }
 
+.text-dark{
+  color:rgb(66, 66, 219) !important ;
+}
+
+.text-primary{
+  color:rgb(66, 66, 219) !important ;
+}
+.btn-outline-primary{
+  color:rgb(66, 66, 219) !important ;
+}
+
+#contato {
+  color: rgb(66, 66, 219); font-size: 30px; text-align: center;margin-top: 5%; position: relative; 
+}  
+
+
+.imgcontato{
+  padding-top: 350px;
+}

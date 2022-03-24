@@ -7,18 +7,19 @@ import ServicosPromocao from "../../services/ServicosPromocao";
 import ServicosLocalidades from "../../services/ServicosLocalidades";
 export default function Create() {
 
-  const [promocao, setPromocao] = useState("Ex: Pacote internacional");
+  const [promocao, setPromocao] = useState("Ex:5% de desconto");
   const [cliente, setCliente] = useState({ id: "", nome: "", email: "", cpf: "" });
   const [clientes, setClientes] = useState([]);
-  const [localidade, setLocalidade] = useState({id: "", origem: "", destino: "", data: "", preco: ""});
-  const [localidades, setLocalidades] = useState([]);
+  const [localidades, setLocalidades] = useState({id: "", origem: "", destino: "", data: "", preco: ""});
+  const [localidadess, setLocalidadess] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
+
   const getAllLocalidades = () => {
-    ClienteService.getAllLocalidades()
+    ServicosLocalidades.getAllLocalidades()
       .then((response) => {
-        setLocalidades(response.data);
+        setLocalidadess(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -46,15 +47,14 @@ export default function Create() {
   const criarOuEditarPromocao = (e) => {
     e.preventDefault();
 
-
-    const promocao = { promocao };
-
+    const promocaos = { promocao, cliente, localidades,};
+    console.log(promocaos)
     if (id) {
-      ServicosPromocao.updatePromocao(id, promocao).then((response) => {
+      ServicosPromocao.updatePromocao(id, promocaos).then((response) => {
         navigate("/Promocao");
       });
     } else {
-      ServicosPromocao.createPromocao(promocao).then((response) => {
+      ServicosPromocao.createPromocao(promocaos).then((response) => {
         navigate("/Promocao");
       });
     }
@@ -65,6 +65,7 @@ export default function Create() {
       if (id) {
         ServicosPromocao.getPromocaoById(id)
           .then((response) => {
+            setPromocao(response.data.promocao.id);
             setPromocao(response.data.promocao);
             setCliente({
               id: response.data.cliente.id,
@@ -72,14 +73,13 @@ export default function Create() {
               email: response.data.cliente.email,
               cpf: response.data.cliente.cpf,
             });
-            setLocalidade({
-              id: response.data.localidade.id,
-              origem: response.data.localidade.origem,
-              destino: response.data.localidade.destino,
-              data: response.data.localidade.data,
-              preco:response.data.localidade.preco,
+            setLocalidades({
+              id: response.data.localidades.id,
+              origem: response.data.localidades.origem,
+              destino: response.data.localidades.destino,
+              data: response.data.localidades.data,
+              preco: response.data.localidades.preco,
             });
-            
           })
           .catch((error) => {
             console.log(error);
@@ -97,33 +97,31 @@ export default function Create() {
           <legend>
             <h2 className="text-center">{id ? "Editar" : "Criar"}</h2>
           </legend>
-          <div className="mb-3">
-            <label htmlFor="Promocao" className="form-label">
-              Promocao
+          <div className="form-group mb-3">
+            <label htmlFor="Promoção" className="form-label">
+              Promoção
             </label>
             <input
               type="text"
-              id="Promocao"
+              id="Promoção"
               className="form-control"
-              placeholder="Promocao"
+              placeholder="5% de Desconto"
               value={promocao}
               onChange={(e) => setPromocao(e.target.value)}
             />
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="ClienteId_cliente" className="form-label">
+            <label htmlFor="Cliente" className="form-label">
               Cliente
             </label>
             <select
-              id="ClienteId_cliente"
-              name="clienteId_cliente"
+              id="Cliente"
+              name="Cliente"
               className="form-select"
-              onChange={(e) =>
-                setCliente({ id: Number.parseInt(e.target.value) })
-              }
+              onChange={(e) =>setCliente({ id: Number.parseInt(e.target.value)})}
             >
-              <option value="DEFAULT" >{id ? cliente.nome : 'Escolha um cliente'}</option>
+              <option value="default">{id ? cliente.nome : 'Selecione um cliente'}</option>
               {clientes.map((cliente) => (
                 <option key={cliente.id} value={cliente.id}>
                   {cliente.nome} {cliente.email} {cliente.cpf}
@@ -133,43 +131,40 @@ export default function Create() {
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="Localidades" className="form-label">
+            <label htmlFor="Localidade" className="form-label">
               Localidade
             </label>
             <select
-              id="Localidade"
-              name="Localidade"
+              id="Localidades"
+              name="Localidades"
               className="form-select"
-              onChange={(e) =>
-                setLocalidade({ id: Number.parseInt(e.target.value) })
-              }
+              onChange={(e) => setLocalidades({ id: Number.parseInt(e.target.value)})}
             >
-              <option value="DEFAULT" >{id ? localidade.origem : 'Alterar localidades'}</option>
-              {localidades.map((localidade) => (
-                <option key={localidade.id} value={localidade.id}>
-                  {localidade.origem} {localidade.destino} {localidade.data} {localidade.preco}
+              <option value="default" >{id ? localidades.origem : 'Selecionar locais'}</option>
+              {localidadess.map((localidades) => (
+                <option key={localidades.id} value={localidades.id}>
+                  {localidades.origem} {localidades.destino} {localidades.data} {localidades.preco}
                 </option>
               ))}
             </select>
           </div>
 
+          
 
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={(e) => criarOuEditarPromocao(e)}
-          >
-            Enviar
+          <button type="submit" className="btn btn-outline-primary" onClick={(e) => criarOuEditarPromocao(e)}>
+          <strong>Enviar</strong>
           </button>
+
           <Link
             to="/Promocao"
-            className="btn btn-danger"
+            className="btn btn-outline-danger"
             style={{ marginLeft: "10px" }}
           >
-            Cancelar
+          <strong>Cancelar</strong>
           </Link>
         </fieldset>
       </form>
     </div>
   );
-}
+  
+  }

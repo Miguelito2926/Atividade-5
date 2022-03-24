@@ -32,7 +32,7 @@ export default function Index() {
         console.log(error);
         const { data } = error.response;
         if (data.status === 500) {
-          alert("Erro na API");
+          alert("Não é possível excluir este dado!");
         }
       });
   };
@@ -40,15 +40,15 @@ export default function Index() {
   return (
     <>
       <header className="header">
-        <h1 className="container">Cadastro Promocao</h1>
+        <h1 className="container">Cadastro de Promoção</h1>
       </header>
       <div className="container py-3">
-        <Link to="/Promocao-Create" className="btn btn-primary mb-2">
-          Criar Promocao
+        <Link to="/Promocao-Create" className="btn btn-outline-primary mb-2">
+        <strong>Criar Promoção</strong>
         </Link>
         <div className="table-responsive">
           <table className="table">
-            <thead>
+            <thead className="text-primary">
               <tr>
                 <th>ID</th>
                 <th>PROMOÇÃO</th>
@@ -76,17 +76,17 @@ export default function Index() {
                   <td>{promocao.localidades.preco}</td>
                   <td className="d-flex">
                     <Link
-                      to={`/Promocao-Update/${promocao.id}`}
-                      className="btn btn-primary"
+                   to={`/Promocao-Update/${promocao.id}`}
+                      className="btn btn-outline-primary"
                     >
-                      Editar
+                 <strong>Editar</strong>
                     </Link>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-outline-danger"
                       onClick={() => deletePromocao(promocao.id)}
                       style={{ marginLeft: "10px" }}
                     >
-                      Deletar
+                     <strong>Excluir</strong>
                     </button>
                   </td>
                 </tr>

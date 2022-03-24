@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ServicosLocalidades from "../../services/ServicosLocalidades";
-import ClienteService from "../../services/ClienteService";
+
 
 export default function Create() {
   const [origem, setOrigem] = useState("");
@@ -12,27 +12,25 @@ export default function Create() {
   const { id } = useParams();
   const navigate = useNavigate();
  
-  const criarOuEditarLocalidades = (e) => {
+  const criarOuEditarLocalidade = (e) => {
     e.preventDefault();
-
-
-    const localidades= {id, origem, destino, data, preco};
+    const localidades = {origem, destino, data, preco};
 
     if (id) {
-      ServicosLocalidades.updateLocalidades(id, localidades).then((response) => {
+      ServicosLocalidades.updateLocalidade(id, localidades).then((response) => {
         navigate("/Localidades");
       });
     } else {
-      ServicosLocalidades.createLocalidades(localidades).then((response) => {
+      ServicosLocalidades.createLocalidade(localidades).then((response) => {
         navigate("/Localidades");
       });
     }
   };
 
   useEffect(() => {
-    function getLocalidadesById() {
+    function getLocalidadeById() {
       if (id) {
-        ServicosLocalidades.getLocalidadesById(id)
+        ServicosLocalidades.getLocalidadeById(id)
           .then((response) => {
 
             setOrigem(response.data.origem);
@@ -46,7 +44,7 @@ export default function Create() {
       }
     }
 
-    getLocalidadesById();
+    getLocalidadeById();
   }, [id]);
 
   return (
@@ -112,19 +110,16 @@ export default function Create() {
             />
           </div>        
 
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={(e) => criarOuEditarLocalidades(e)}
-          >
-            Enviar
+          
+          <button type="submit" className="btn btn-outline-primary" onClick={(e) => criarOuEditarLocalidade(e)}>
+          <strong>Enviar</strong>
           </button>
           <Link
             to="/Localidades"
-            className="btn btn-danger"
+            className="btn btn-outline-danger"
             style={{ marginLeft: "10px" }}
           >
-            Cancelar
+            <strong>Cancelar</strong>
           </Link>
         </fieldset>
       </form>
